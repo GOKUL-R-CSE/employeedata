@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees Details</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+    <h1>Students Details</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>DateOfBirth</th>
+		<th>Gender</th>
+		<th>Email</th>
+		<th>PhoneNumber</th>
+		<th>Qualification</th>
+		<th>Experience</th>
+		<th>PrevOrganisation</th>
+		<th>DateOfJoining</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script>
+
+        function addEmployee(data) {
+            const row = document.createElement('tr')
+            row.innerHTML = `
+                <td>${data.firstname}</td>
+                <td>${data.lastname}</td>
+                <td>${data.dob}</td>
+                <td>${data.gender}</td>
+                <td>${data.email}</td>
+                <td>${data.phonenumber}</td>
+	   <td>${data.qualification}</td>
+	   <td>${data.experience}</td>
+				    <td>${data.prevorganisation}</td>
+				    <td>${data.doj}</td>`
+            return row
+        }
+
+        async function refreshDetails() {
+            const response = await fetch('http://localhost:3000/details')
+            const data = await response.json()
+
+            let table = document.getElementById('tbody')
+            table.innerHTML = ''
+
+            data.forEach(d => {
+                const row = addEmployee(d)
+                table.appendChild(row)
+            });
+
+        }
+
+       refreshDeatils()
+
+    </script>
+</body>
+
+</html>
